@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex flex-center">
-    
+    Wishlist
     <q-list class="wishlist" v-if="items.length">
       <wishlist-item v-for="item in items" :key="item.id" :item="item" @delete="delete_item" @update="save_items"/>
     </q-list>
