@@ -10,7 +10,7 @@
           Edit
         </q-tooltip>
       </q-btn>
-      <q-btn icon="delete" color="negative" flat @click="delete_item(item.id)">
+      <q-btn icon="delete" color="negative" flat @click="delete_item(i)">
         <q-tooltip>
           Delete
         </q-tooltip>
@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  props: ['item'],
+  props: ['item', 'i'],
   data: () => ({
     item_edit: false
   }),
@@ -32,7 +32,7 @@ export default {
     }
   },
   methods: {
-    delete_item (id) {
+    delete_item (i) {
       this.$q.dialog({
         title: 'Wishlist',
         message: 'Are you sure you wish to delete "' + this.item.text + '"?',
@@ -43,7 +43,7 @@ export default {
           color: 'negative'
         }
       }).then(() => {
-        this.$emit('delete', id);
+        this.$emit('delete', i);
       }).catch(() => {
 
       })      

@@ -1,8 +1,10 @@
 <template>
   <q-page class="flex flex-center">
 
+    <h1 class="title fit text-center q-mb-sm">Wishlist</h1>
+
     <q-list class="wishlist" v-if="items.length">
-      <wishlist-item v-for="item in items" :key="item.id" :item="item" @delete="delete_item" @update="save_items"/>
+      <wishlist-item v-for="(item, i) in items" :key="i" :item="item" :i="i" @delete="delete_item" @update="save_items"/>
     </q-list>
 
     <q-btn round color="primary" @click="add_item" class="fixed fab" icon="add"/>
@@ -36,14 +38,18 @@ export default {
           label: 'Add'
         }
       }).then(item => {
-        this.items.push({ id: this.items.length, text: item });
+        this.items.push({ text: item });
         this.save_items();
       }).catch(() => {
 
       })
     },
-    delete_item(id) {      
-      this.items.splice(id, 1);
+    delete_item(i) {
+      if (this.items[i] === undefined)
+        this.items = [];
+      else
+        this.items.splice(i, 1);
+        
       this.save_items();
     },
     save_items() {
@@ -67,6 +73,11 @@ export default {
 </script>
 
 <style lang="stylus">
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script');
+
+.title
+  font-family 'Dancing Script', cursive;
+
 .wishlist
   width 100%
   max-width 500px
