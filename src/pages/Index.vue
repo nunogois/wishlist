@@ -17,6 +17,7 @@
 <script>
 import WishlistItem from 'components/WishlistItem';
 
+
 export default {
   name: 'PageIndex',
   components: {
