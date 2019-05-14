@@ -7,6 +7,8 @@
       <wishlist-item v-for="(item, i) in items" :key="i" :item="item" :i="i" @delete="delete_item" @update="save_items"/>
     </q-list>
 
+    <h2 v-else class="fit text-center q-display-1 text-weight-thin">Your wishlist is empty! Click the Add button on the lower right corner or click <a href="javascript:;" style="text-decoration:none;" @click="add_item">here</a> to add a new item!</h2>
+
     <q-btn round color="primary" @click="add_item" class="fixed fab" icon="add"/>
 
   </q-page>
@@ -49,7 +51,7 @@ export default {
         this.items = [];
       else
         this.items.splice(i, 1);
-        
+
       this.save_items();
     },
     save_items() {
