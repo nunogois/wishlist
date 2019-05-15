@@ -5,7 +5,7 @@
 
     <h1 class="title fit text-center q-mb-sm">Wishlist</h1>
 
-    <q-list class="wishlist content-start" v-if="items.length">
+    <q-list class="wishlist" no-border v-if="items.length">
       <wishlist-item v-for="(item, i) in items" :key="i" :item="item" :i="i" @delete="delete_item" @update="save_items"/>
     </q-list>
 
@@ -95,6 +95,14 @@ export default {
 
 .q-layout-page
   padding-bottom 80px
+
+.q-item+.q-item:before
+    content ""
+    height 1px
+    background linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(217, 217, 217, 1) 50%, rgba(0, 0, 0, 0) 100%)
+    position absolute
+    width 100%
+    top 0
 
 @media (min-width: 600px)
   .fab
