@@ -10,7 +10,8 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "axios": "^0.18.0"
+    "axios": "^0.18.0",
+    "vuedraggable": "^2.20.0"
   },
   "devDependencies": {
     "quasar-cli": "^0.17.0",

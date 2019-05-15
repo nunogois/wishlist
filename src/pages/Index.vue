@@ -6,9 +6,13 @@
 
     <h1 class="title fit q-mb-sm">Wishlist</h1>
 
-    <q-list class="wishlist" no-border v-if="items.length">
+    <!-- <q-list class="wishlist" no-border v-if="items.length">
       <wishlist-item v-for="(item, i) in items" :key="i" :item="item" :i="i" @delete="delete_item" @update="save_items"/>
-    </q-list>
+    </q-list> -->
+
+    <draggable tag="q-list" :list="items" :component-data="{attrs: {noBorder: true }}" class="wishlist" v-if="items.length">
+      <wishlist-item v-for="(item, i) in items" :key="i" :item="item" :i="i" @delete="delete_item" @update="save_items"/>
+    </draggable>
 
     <h2 v-else class="fit q-display-1 text-weight-thin content-start">Your wishlist is empty! Click the Add button on the lower right corner or click <a href="javascript:;" style="text-decoration:none;" @click="add_item">here</a> to add a new item!</h2>
 
@@ -22,12 +26,15 @@ import WishlistItem from 'components/WishlistItem';
 import GitHubCorner from 'components/GitHubCorner';
 import InstallApp from 'components/InstallApp';
 
+import Draggable from 'vuedraggable';
+
 export default {
   name: 'PageIndex',
   components: {
     WishlistItem,
     GitHubCorner,
-    InstallApp
+    InstallApp,
+    Draggable
   },
   data: () => ({
     items: []
