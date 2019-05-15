@@ -3,13 +3,13 @@
 
     <git-hub-corner/>
 
-    <h1 class="title fit text-center q-mb-sm">Wishlist</h1>
+    <h1 class="title fit q-mb-sm">Wishlist</h1>
 
     <q-list class="wishlist" no-border v-if="items.length">
       <wishlist-item v-for="(item, i) in items" :key="i" :item="item" :i="i" @delete="delete_item" @update="save_items"/>
     </q-list>
 
-    <h2 v-else class="fit text-center q-display-1 text-weight-thin content-start">Your wishlist is empty! Click the Add button on the lower right corner or click <a href="javascript:;" style="text-decoration:none;" @click="add_item">here</a> to add a new item!</h2>
+    <h2 v-else class="fit q-display-1 text-weight-thin content-start">Your wishlist is empty! Click the Add button on the lower right corner or click <a href="javascript:;" style="text-decoration:none;" @click="add_item">here</a> to add a new item!</h2>
 
     <q-btn round color="primary" @click="add_item" class="fixed fab" icon="add"/>
 
@@ -95,6 +95,7 @@ export default {
 
 .q-layout-page
   padding-bottom 80px
+  text-align center
 
 .q-item+.q-item:before
     content ""
