@@ -83,9 +83,9 @@ module.exports = function (ctx) {
       // workboxPluginMode: 'InjectManifest',
       // workboxOptions: {},
       manifest: {
-        // name: 'Quasar App',
-        // short_name: 'Quasar-PWA',
-        // description: 'Best PWA App in town!',
+        name: 'Wishlist',
+        short_name: 'Wishlist',
+        description: 'An open-source wishlist made in Quasar Framework',
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
