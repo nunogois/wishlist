@@ -3,6 +3,8 @@
     <q-card-main>
       Would you like to install Wishlist?
       <q-btn class="on-right" dense label="Install" flat color="primary" @click.prevent="install"/>
+      <div class="install-separator"></div>
+      <q-btn label="Dismiss" dense flat @click="show_install = false"/>
     </q-card-main>
   </q-card>
 </template>
@@ -34,3 +36,15 @@ export default {
   }
 };
 </script>
+
+<style lang="stylus">
+
+.install-separator
+  height 10px
+  width 1px
+  background-color black
+  display inline-block
+  margin-left 5px
+  margin-right 5px
+
+</style>
