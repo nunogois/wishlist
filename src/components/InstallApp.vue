@@ -20,12 +20,12 @@ export default {
     window.addEventListener('beforeinstallprompt', e => {
       e.preventDefault();
       installEvent = e;
-      this.showInstallBanner = true;
+      this.show_install = true;
     });
   },
   methods: {
     install() {
-      this.showInstallBanner = false;
+      this.show_install = false;
       installEvent.prompt();
       installEvent.userChoice.then(() => {
         installEvent = null;
