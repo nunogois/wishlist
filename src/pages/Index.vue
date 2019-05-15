@@ -44,7 +44,7 @@ export default {
           label: 'Add'
         }
       }).then(item => {
-        this.items.push({ text: item });
+        this.items.push({ text: item, check: false });
         this.save_items();
       }).catch(() => {
 
