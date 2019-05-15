@@ -1,8 +1,11 @@
 <template>
-  <q-item>
+  <q-item link :class="item.check ? 'item_checked' : ''" tag="label">
+    <q-item-side left>
+      <q-checkbox v-model="item.check" color="green"/>
+    </q-item-side>
     <q-item-main>
       <q-input v-if="item_edit" v-model="item.text" ref="item_text" autofocus @focus="$refs.item_text.select()" @keyup.enter="item_edit = false"/>
-      <div v-else>{{ item.text }}</div>
+      <div v-else :style="item.check ? 'text-decoration: line-through; color: green' : ''">{{ item.text }}</div>
     </q-item-main>
     <q-item-side right>
       <q-btn :icon="item_edit ? 'check' : 'edit'" :color="item_edit ? 'green' : 'orange'" flat @click="item_edit = !item_edit">
@@ -18,6 +21,8 @@
     </q-item-side>
   </q-item>
 </template>
+
+<!-- text-decoration: line-through -->
 
 <script>
 export default {
@@ -51,3 +56,10 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus">
+
+.item_checked
+  background-color #f7f7f7
+
+</style>
