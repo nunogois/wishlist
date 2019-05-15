@@ -2,6 +2,7 @@
   <q-page class="flex flex-center">
 
     <git-hub-corner/>
+    <install-app/>
 
     <h1 class="title fit q-mb-sm">Wishlist</h1>
 
@@ -19,12 +20,14 @@
 <script>
 import WishlistItem from 'components/WishlistItem';
 import GitHubCorner from 'components/GitHubCorner';
+import InstallApp from 'components/InstallApp';
 
 export default {
   name: 'PageIndex',
   components: {
     WishlistItem,
-    GitHubCorner
+    GitHubCorner,
+    InstallApp
   },
   data: () => ({
     items: []
