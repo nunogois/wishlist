@@ -6,10 +6,6 @@
 
     <h1 class="title fit q-mb-sm">Wishlist</h1>
 
-    <!-- <q-list class="wishlist" no-border v-if="items.length">
-      <wishlist-item v-for="(item, i) in items" :key="i" :item="item" :i="i" @delete="delete_item" @update="save_items"/>
-    </q-list> -->
-
     <draggable tag="q-list" :list="items" :component-data="{attrs: {noBorder: true }}" class="wishlist" v-if="items.length">
       <wishlist-item v-for="(item, i) in items" :key="i" :item="item" :i="i" @delete="delete_item" @update="save_items"/>
     </draggable>

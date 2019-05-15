@@ -59,7 +59,8 @@ module.exports = function (ctx) {
         'QCardActions',
         'QTooltip',
         'QInput',
-        'QCheckbox'
+        'QCheckbox',
+        'QDialog'
       ],
       directives: [
         'Ripple'

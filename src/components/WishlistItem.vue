@@ -22,8 +22,6 @@
   </q-item>
 </template>
 
-<!-- text-decoration: line-through -->
-
 <script>
 export default {
   props: ['item', 'i'],
