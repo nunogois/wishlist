@@ -20,6 +20,7 @@
 import WishlistItem from 'components/WishlistItem';
 import GitHubCorner from 'components/GitHubCorner';
 
+
 export default {
   name: 'PageIndex',
   components: {
