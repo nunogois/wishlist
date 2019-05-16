@@ -14,25 +14,25 @@
     <q-fab class="fixed menu" color="primary" icon="menu" direction="up">
       
       <q-fab-action v-if="items.filter(i => !i.check).length" color="green" icon="check_circle_outline" @click="checking_items(true)">
-        <q-tooltip anchor="center right" self="center left" :offset="[10, 0]">Check all items</q-tooltip>
+        <q-tooltip :disable="$q.platform.is.mobile" anchor="center right" self="center left" :offset="[10, 0]">Check all items</q-tooltip>
       </q-fab-action>
 
       <q-fab-action v-if="items.filter(i => i.check).length" color="purple-13" icon="remove_circle_outline" @click="checking_items(false)">
-        <q-tooltip anchor="center right" self="center left" :offset="[10, 0]">Uncheck all items</q-tooltip>
+        <q-tooltip :disable="$q.platform.is.mobile" anchor="center right" self="center left" :offset="[10, 0]">Uncheck all items</q-tooltip>
       </q-fab-action>
 
       <q-fab-action v-if="items.filter(i => i.check).length" color="orange-7" icon="delete_sweep" @click="delete_checked_items">
-        <q-tooltip anchor="center right" self="center left" :offset="[10, 0]">Delete checked items</q-tooltip>
+        <q-tooltip :disable="$q.platform.is.mobile" anchor="center right" self="center left" :offset="[10, 0]">Delete checked items</q-tooltip>
       </q-fab-action>
 
       <q-fab-action v-if="items.length" color="red" icon="delete_forever" @click="delete_all_items">
-        <q-tooltip anchor="center right" self="center left" :offset="[10, 0]">Delete all items</q-tooltip>
+        <q-tooltip :disable="$q.platform.is.mobile" anchor="center right" self="center left" :offset="[10, 0]">Delete all items</q-tooltip>
       </q-fab-action>
       
       <install-app/>
 
       <q-fab-action color="info" icon="info" text-color="grey-11" @click="about">
-        <q-tooltip anchor="center right" self="center left" :offset="[10, 0]">About Wishlist</q-tooltip>
+        <q-tooltip :disable="$q.platform.is.mobile" anchor="center right" self="center left" :offset="[10, 0]">About Wishlist</q-tooltip>
       </q-fab-action>
     </q-fab>
 

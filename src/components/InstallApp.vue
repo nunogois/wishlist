@@ -1,6 +1,6 @@
 <template>
   <q-fab-action v-if="show_install" color="blue" icon="get_app" @click="install">
-    <q-tooltip anchor="center right" self="center left" :offset="[10, 0]">Install Wishlist</q-tooltip>
+    <q-tooltip :disable="$q.platform.is.mobile" anchor="center right" self="center left" :offset="[10, 0]">Install Wishlist</q-tooltip>
   </q-fab-action>
 </template>
 

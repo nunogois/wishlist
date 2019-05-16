@@ -9,12 +9,12 @@
     </q-item-main>
     <q-item-side right>
       <q-btn :icon="item_edit ? 'check' : 'edit'" :color="item_edit ? 'green' : 'orange'" flat @click="item_edit = !item_edit">
-        <q-tooltip>
+        <q-tooltip :disable="$q.platform.is.mobile">
           Edit
         </q-tooltip>
       </q-btn>
       <q-btn icon="delete" color="negative" flat @click="delete_item(i)">
-        <q-tooltip>
+        <q-tooltip :disable="$q.platform.is.mobile">
           Delete
         </q-tooltip>
       </q-btn>
