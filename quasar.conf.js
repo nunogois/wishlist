@@ -7,7 +7,8 @@ module.exports = function (ctx) {
       'axios'
     ],
     css: [
-      'app.styl'
+      'app.styl',
+      'wishlist.styl'
     ],
     extras: [
       ctx.theme.mat ? 'roboto-font' : null,

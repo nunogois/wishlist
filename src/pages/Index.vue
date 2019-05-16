@@ -5,32 +5,38 @@
 
     <h1 class="title fit q-mb-sm">Wishlist</h1>
 
-    <draggable tag="q-list" :list="items" :component-data="{attrs: {noBorder: true }}" class="wishlist" v-if="items.length">
-      <wishlist-item v-for="(item, i) in items" :key="i" :item="item" :i="i" @delete="delete_item" @update="save_items"/>
+    <draggable tag="q-list" :list="items" :component-data="{attrs: {noBorder: true }}" class="wishlist" v-if="items.length" @change="save_items">
+      <wishlist-item v-for="(item, i) in items" :key="item.id" :item="item" :i="i" @delete="delete_item" @update="save_items"/>
     </draggable>
 
     <h2 v-else class="fit q-display-1 text-weight-thin content-start">Your wishlist is empty! Click the Add button on the lower right corner or click <a href="javascript:;" style="text-decoration:none;" @click="add_item">here</a> to add a new item!</h2>
 
-    <q-fab class="fixed fab-left" color="primary" icon="menu" active-icon="menu" direction="up">
-      <install-app/>
-
-      <q-fab-action color="green" icon="check" @click="check_items">
+    <q-fab class="fixed menu" color="primary" icon="menu" direction="up">
+      
+      <q-fab-action v-if="items.filter(i => !i.check).length" color="green" icon="check_circle_outline" @click="checking_items(true)">
         <q-tooltip anchor="center right" self="center left" :offset="[10, 0]">Check all items</q-tooltip>
       </q-fab-action>
 
-      <q-fab color="red" icon="delete_outline" active-icon="keyboard_arrow_right" direction="right">
-        <q-fab-action color="red" icon="delete" @click="delete_checked_items">
-         <q-tooltip anchor="top middle" self="top middle" :offset="[0, 40]">Delete checked items</q-tooltip>
-        </q-fab-action>
+      <q-fab-action v-if="items.filter(i => i.check).length" color="purple-13" icon="clear" @click="checking_items(false)">
+        <q-tooltip anchor="center right" self="center left" :offset="[10, 0]">Uncheck all items</q-tooltip>
+      </q-fab-action>
 
-        <q-fab-action color="red" icon="delete_sweep" @click="delete_all_items">
-         <q-tooltip anchor="top middle" self="top middle" :offset="[0, 40]">Delete all items</q-tooltip>
-        </q-fab-action>
-      </q-fab>
+      <q-fab-action v-if="items.filter(i => i.check).length" color="orange-7" icon="delete_sweep" @click="delete_checked_items">
+        <q-tooltip anchor="center right" self="center left" :offset="[10, 0]">Delete checked items</q-tooltip>
+      </q-fab-action>
+
+      <q-fab-action v-if="items.length" color="red" icon="delete_forever" @click="delete_all_items">
+        <q-tooltip anchor="center right" self="center left" :offset="[10, 0]">Delete all items</q-tooltip>
+      </q-fab-action>
       
+      <install-app/>
+
+      <q-fab-action color="info" icon="info" text-color="grey-11" @click="about">
+        <q-tooltip anchor="center right" self="center left" :offset="[10, 0]">About Wishlist</q-tooltip>
+      </q-fab-action>
     </q-fab>
 
-    <q-btn round color="primary" @click="add_item" class="fixed fab-right" icon="add"/>
+    <q-btn round color="primary" @click="add_item" class="fixed add-item" icon="add"/>
 
   </q-page>
 </template>
@@ -41,6 +47,8 @@ import GitHubCorner from 'components/GitHubCorner';
 import InstallApp from 'components/InstallApp';
 
 import Draggable from 'vuedraggable';
+
+import { uid } from 'quasar';
 
 export default {
   name: 'PageIndex',
@@ -55,6 +63,21 @@ export default {
     loaded: false
   }),
   methods: {
+    about() {
+      this.$q.dialog({
+        title: 'About Wishlist',
+        message: 'yes',
+        ok: {
+          label: 'OK',
+          color: 'primary'
+        }
+      }).then(() => {
+
+      }).catch(() => {
+
+      })
+
+    },
     add_item() {
       this.$q.dialog({
         title: 'Wishlist',
@@ -70,7 +93,7 @@ export default {
         }
       }).then(item => {
         if (item !== '') {
-          this.items.push({ text: item, check: false });
+          this.items.push({ text: item, check: false, id: uid() });
           this.save_items();
         }
       }).catch(() => {
@@ -87,15 +110,14 @@ export default {
     save_items() {
       this.$q.localStorage.set('nunogois_wishlist', this.items);
     },
-    check_items() {
+    checking_items(condition) {
       this.items.forEach(item => {
-        item.check = true;
+        item.check = condition;
       });
       this.save_items();
     },
     delete_checked_items() {
       var app = this;
-      console.log(app.items);
       this.$q.dialog({
         title: 'Wishlist',
         message: 'Are you sure you wish to delete all checked items?',
@@ -106,10 +128,12 @@ export default {
           color: 'negative'
         }
       }).then(() => {
-        for (let i=0; i<app.items.length; i++) {
-          if (app.items[i].check === true)
-            app.items.splice(i, 1);
-        }
+        let new_app_items = [];
+        app.items.forEach(item => {
+          if (!item.check)
+            new_app_items.push(item);
+        });
+        app.items = new_app_items;
         app.save_items();
       }).catch(() => {
 
@@ -153,8 +177,6 @@ export default {
 </script>
 
 <style lang="stylus">
-@import url('https://fonts.googleapis.com/css?family=Dancing+Script');
-
 .title
   font-family 'Dancing Script', cursive;
 
@@ -162,12 +184,12 @@ export default {
   width 100%
   max-width 500px
 
-.fab-left
+.menu
   font-size 20px
   left 18px
   bottom 18px
 
-.fab-right
+.add-item
   font-size 20px
   right 18px
   bottom 18px
@@ -185,12 +207,12 @@ export default {
     top 0
 
 @media (min-width: 600px)
-  .fab-left
+  .menu
     font-size 34px
     left 38px
     bottom 38px
 
-  .fab-right
+  .add-item
     font-size 34px
     right 38px
     bottom 38px

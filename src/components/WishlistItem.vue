@@ -1,7 +1,7 @@
 <template>
   <q-item link :class="item.check ? 'item_checked' : ''" tag="label">
     <q-item-side left>
-      <q-checkbox v-model="item.check" color="green"/>
+      <q-checkbox v-model="item.check" color="green" @input="$emit('update');"/>
     </q-item-side>
     <q-item-main>
       <q-input v-if="item_edit" v-model="item.text" ref="item_text" autofocus @focus="$refs.item_text.select()" @keyup.enter="item_edit = false"/>

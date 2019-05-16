@@ -31,22 +31,3 @@ export default {
   }
 };
 </script>
-
-<style lang="stylus">
-@import url('https://fonts.googleapis.com/css?family=Dancing+Script');
-
-.install-separator
-  height 10px
-  width 1px
-  background-color black
-  display inline-block
-  margin-left 5px
-  margin-right 5px
-
-.dialog_install .modal-content
-  margin-top 20px
-
-.dialog_install .modal-header
-  font-family 'Dancing Script', cursive;
-
-</style>
