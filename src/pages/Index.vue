@@ -11,16 +11,23 @@
 
     <h2 v-else class="fit q-display-1 text-weight-thin content-start">Your wishlist is empty! Click the Add button on the lower right corner or click <a href="javascript:;" style="text-decoration:none;" @click="add_item">here</a> to add a new item!</h2>
 
-    <q-fab class="fixed fab-left" color="primary" icon="menu" direction="up">
+    <q-fab class="fixed fab-left" color="primary" icon="menu" active-icon="menu" direction="up">
+      <install-app/>
+
       <q-fab-action color="green" icon="check" @click="check_items">
         <q-tooltip anchor="center right" self="center left" :offset="[10, 0]">Check all items</q-tooltip>
       </q-fab-action>
 
-      <q-fab-action color="red" icon="delete_sweep" @click="delete_items">
-        <q-tooltip anchor="center right" self="center left" :offset="[10, 0]">Delete all items</q-tooltip>
-      </q-fab-action>
+      <q-fab color="red" icon="delete_outline" active-icon="keyboard_arrow_right" direction="right">
+        <q-fab-action color="red" icon="delete" @click="delete_checked_items">
+         <q-tooltip anchor="top middle" self="top middle" :offset="[0, 40]">Delete checked items</q-tooltip>
+        </q-fab-action>
 
-      <install-app/>
+        <q-fab-action color="red" icon="delete_sweep" @click="delete_all_items">
+         <q-tooltip anchor="top middle" self="top middle" :offset="[0, 40]">Delete all items</q-tooltip>
+        </q-fab-action>
+      </q-fab>
+      
     </q-fab>
 
     <q-btn round color="primary" @click="add_item" class="fixed fab-right" icon="add"/>
@@ -67,7 +74,6 @@ export default {
           this.save_items();
         }
       }).catch(() => {
-
       })
     },
     delete_item(i) {
@@ -87,7 +93,29 @@ export default {
       });
       this.save_items();
     },
-    delete_items() {
+    delete_checked_items() {
+      var app = this;
+      console.log(app.items);
+      this.$q.dialog({
+        title: 'Wishlist',
+        message: 'Are you sure you wish to delete all checked items?',
+        cancel: true,
+        color: 'primary',
+        ok: {
+          label: 'Delete',
+          color: 'negative'
+        }
+      }).then(() => {
+        for (let i=0; i<app.items.length; i++) {
+          if (app.items[i].check === true)
+            app.items.splice(i, 1);
+        }
+        app.save_items();
+      }).catch(() => {
+
+      })
+    },
+    delete_all_items() {
       this.$q.dialog({
         title: 'Wishlist',
         message: 'Are you sure you wish to delete all items?',
@@ -107,7 +135,6 @@ export default {
   },
   mounted () {
     var app = this;
-
     if (!app.loaded) {
       window.addEventListener('keyup', function(e) {
         var originalElement = e.srcElement || e.originalTarget;
