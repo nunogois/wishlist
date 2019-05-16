@@ -1,14 +1,7 @@
 <template>
-
-  <q-dialog v-model="show_install" class="dialog_install" position="top" @ok="install">
-    <span slot="title">Wishlist</span>
-    <span slot="message">Would you like to install Wishlist?</span>
-
-    <template slot="buttons" slot-scope="props">
-      <q-btn flat label="No, thanks" @click="props.cancel" />
-      <q-btn color="primary" label="Install" @click="props.ok" />                                
-    </template>
-  </q-dialog>
+  <q-fab-action v-if="show_install" color="blue" icon="get_app" @click="install">
+    <q-tooltip anchor="center right" self="center left" :offset="[10, 0]">Install Wishlist</q-tooltip>
+  </q-fab-action>
 </template>
 
 <script>

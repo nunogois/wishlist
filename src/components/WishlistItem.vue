@@ -49,7 +49,7 @@ export default {
         this.$emit('delete', i);
       }).catch(() => {
 
-      })      
+      })
     }
   }
 }

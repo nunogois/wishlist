@@ -60,7 +60,9 @@ module.exports = function (ctx) {
         'QTooltip',
         'QInput',
         'QCheckbox',
-        'QDialog'
+        'QDialog',
+        'QFab',
+        'QFabAction'
       ],
       directives: [
         'Ripple'

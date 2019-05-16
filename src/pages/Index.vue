@@ -2,7 +2,6 @@
   <q-page class="flex flex-center">
 
     <git-hub-corner/>
-    <install-app/>
 
     <h1 class="title fit q-mb-sm">Wishlist</h1>
 
@@ -12,7 +11,19 @@
 
     <h2 v-else class="fit q-display-1 text-weight-thin content-start">Your wishlist is empty! Click the Add button on the lower right corner or click <a href="javascript:;" style="text-decoration:none;" @click="add_item">here</a> to add a new item!</h2>
 
-    <q-btn round color="primary" @click="add_item" class="fixed fab" icon="add"/>
+    <q-fab class="fixed fab-left" color="primary" icon="menu" direction="up">
+      <q-fab-action color="green" icon="check" @click="check_items">
+        <q-tooltip anchor="center right" self="center left" :offset="[10, 0]">Check all items</q-tooltip>
+      </q-fab-action>
+
+      <q-fab-action color="red" icon="delete_sweep" @click="delete_items">
+        <q-tooltip anchor="center right" self="center left" :offset="[10, 0]">Delete all items</q-tooltip>
+      </q-fab-action>
+
+      <install-app/>
+    </q-fab>
+
+    <q-btn round color="primary" @click="add_item" class="fixed fab-right" icon="add"/>
 
   </q-page>
 </template>
@@ -33,7 +44,8 @@ export default {
     Draggable
   },
   data: () => ({
-    items: []
+    items: [],
+    loaded: false
   }),
   methods: {
     add_item() {
@@ -50,8 +62,10 @@ export default {
           label: 'Add'
         }
       }).then(item => {
-        this.items.push({ text: item, check: false });
-        this.save_items();
+        if (item !== '') {
+          this.items.push({ text: item, check: false });
+          this.save_items();
+        }
       }).catch(() => {
 
       })
@@ -66,20 +80,47 @@ export default {
     },
     save_items() {
       this.$q.localStorage.set('nunogois_wishlist', this.items);
+    },
+    check_items() {
+      this.items.forEach(item => {
+        item.check = true;
+      });
+      this.save_items();
+    },
+    delete_items() {
+      this.$q.dialog({
+        title: 'Wishlist',
+        message: 'Are you sure you wish to delete all items?',
+        cancel: true,
+        color: 'primary',
+        ok: {
+          label: 'Delete',
+          color: 'negative'
+        }
+      }).then(() => {
+        this.items = [];
+        this.save_items();
+      }).catch(() => {
+
+      })
     }
   },
   mounted () {
     var app = this;
 
-    window.addEventListener('keyup', function(e) {
-      var originalElement = e.srcElement || e.originalTarget;
-      if (e.keyCode === 13 && originalElement.tagName === 'BODY')
-        app.add_item();
-    })
+    if (!app.loaded) {
+      window.addEventListener('keyup', function(e) {
+        var originalElement = e.srcElement || e.originalTarget;
+        if (e.keyCode === 13 && originalElement.tagName === 'BODY')
+          app.add_item();
+      })
 
-    var items = this.$q.localStorage.get.item('nunogois_wishlist');
-    if (items !== null)
-      app.items = items;
+      var items = this.$q.localStorage.get.item('nunogois_wishlist');
+      if (items !== null)
+        app.items = items;
+
+      app.loaded = true;
+    }
   }
 }
 </script>
@@ -94,7 +135,12 @@ export default {
   width 100%
   max-width 500px
 
-.fab
+.fab-left
+  font-size 20px
+  left 18px
+  bottom 18px
+
+.fab-right
   font-size 20px
   right 18px
   bottom 18px
@@ -112,7 +158,12 @@ export default {
     top 0
 
 @media (min-width: 600px)
-  .fab
+  .fab-left
+    font-size 34px
+    left 38px
+    bottom 38px
+
+  .fab-right
     font-size 34px
     right 38px
     bottom 38px
