@@ -37,7 +37,7 @@
     </q-fab>
 
     <q-btn round color="primary" @click="add_item" class="fixed add-item" icon="add">
-      <q-tooltip anchor="center left" self="center right" :offset="[10, 0]">New Item</q-tooltip>
+      <q-tooltip disable="$q.platform.is.mobile" anchor="center left" self="center right" :offset="[10, 0]">New Item</q-tooltip>
     </q-btn>
 
     <q-dialog v-model="show_about">
