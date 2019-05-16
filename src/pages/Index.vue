@@ -17,7 +17,7 @@
         <q-tooltip anchor="center right" self="center left" :offset="[10, 0]">Check all items</q-tooltip>
       </q-fab-action>
 
-      <q-fab-action v-if="items.filter(i => i.check).length" color="purple-13" icon="clear" @click="checking_items(false)">
+      <q-fab-action v-if="items.filter(i => i.check).length" color="purple-13" icon="remove_circle_outline" @click="checking_items(false)">
         <q-tooltip anchor="center right" self="center left" :offset="[10, 0]">Uncheck all items</q-tooltip>
       </q-fab-action>
 
@@ -36,7 +36,20 @@
       </q-fab-action>
     </q-fab>
 
-    <q-btn round color="primary" @click="add_item" class="fixed add-item" icon="add"/>
+    <q-btn round color="primary" @click="add_item" class="fixed add-item" icon="add">
+      <q-tooltip anchor="center left" self="center right" :offset="[10, 0]">New Item</q-tooltip>
+    </q-btn>
+
+    <q-dialog v-model="show_about">
+      <span slot="title">About Wishlist</span>
+      <p slot="message" class="text-weight-light">
+        Wishlist is a basic list made in Quasar Framework!
+        <br>
+        You can get more information about Wishlist <a href="https://github.com/yokiharo/wishlist" target="_blank" style="text-decoration:none;">here</a>.
+        <br><br>
+        Thank you for using Wishlist!
+      </p>
+    </q-dialog>
 
   </q-page>
 </template>
@@ -60,23 +73,12 @@ export default {
   },
   data: () => ({
     items: [],
-    loaded: false
+    loaded: false,
+    show_about: false
   }),
   methods: {
     about() {
-      this.$q.dialog({
-        title: 'About Wishlist',
-        message: 'yes',
-        ok: {
-          label: 'OK',
-          color: 'primary'
-        }
-      }).then(() => {
-
-      }).catch(() => {
-
-      })
-
+      this.show_about = true;
     },
     add_item() {
       this.$q.dialog({
