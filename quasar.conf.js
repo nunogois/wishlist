@@ -63,10 +63,12 @@ module.exports = function (ctx) {
         'QCheckbox',
         'QDialog',
         'QFab',
-        'QFabAction'
+        'QFabAction',
+        'QModal'
       ],
       directives: [
-        'Ripple'
+        'Ripple',
+        'CloseOverlay'
       ],
       // Quasar plugins
       plugins: [

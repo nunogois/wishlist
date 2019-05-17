@@ -5,7 +5,7 @@
 
     <h1 class="title fit q-mb-sm">Wishlist</h1>
 
-    <draggable tag="q-list" :list="items" :component-data="{attrs: {noBorder: true }}" class="wishlist" v-if="items.length" @change="save_items">
+    <draggable tag="q-list" :options="{delay:400, delayOnTouchOnly:true}" :list="items" :component-data="{attrs: {noBorder: true }}" class="wishlist" v-if="items.length" @change="save_items">
       <wishlist-item v-for="(item, i) in items" :key="item.id" :item="item" :i="i" @delete="delete_item" @update="save_items"/>
     </draggable>
 
@@ -21,14 +21,14 @@
         <q-tooltip :disable="$q.platform.is.mobile" anchor="center right" self="center left" :offset="[10, 0]">Uncheck all items</q-tooltip>
       </q-fab-action>
 
-      <q-fab-action v-if="items.filter(i => i.check).length" color="orange-7" icon="delete_sweep" @click="delete_checked_items">
+      <q-fab-action v-if="items.filter(i => i.check).length > 0 && items.length !== items.filter(i => i.check).length" color="orange-7" icon="delete_sweep" @click="delete_checked_items">
         <q-tooltip :disable="$q.platform.is.mobile" anchor="center right" self="center left" :offset="[10, 0]">Delete checked items</q-tooltip>
       </q-fab-action>
 
       <q-fab-action v-if="items.length" color="red" icon="delete_forever" @click="delete_all_items">
         <q-tooltip :disable="$q.platform.is.mobile" anchor="center right" self="center left" :offset="[10, 0]">Delete all items</q-tooltip>
       </q-fab-action>
-      
+
       <install-app/>
 
       <q-fab-action color="info" icon="info" text-color="grey-11" @click="about">
