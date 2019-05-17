@@ -49,8 +49,10 @@
         <br><br>
         Thank you for using Wishlist!
       </p>
+      <div slot="body">
+        <span>1.19.05.17.1800</span>
+      </div>
     </q-dialog>
-
   </q-page>
 </template>
 
