@@ -51,7 +51,7 @@
         Thank you for using Wishlist!
       </p>
       <div slot="body">
-        <span>1.19.05.22.1243</span>
+        <span>1.19.05.23.0000</span>
       </div>
     </q-dialog>
   </q-page>
