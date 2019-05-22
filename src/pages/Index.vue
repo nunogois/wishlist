@@ -171,7 +171,15 @@ export default {
           app.add_item();
       })
 
-      var items = this.$q.localStorage.get.item('nunogois_wishlist');
+      var token = app.$route.query.token;
+      if (token) {
+        app.$q.localStorage.set('nunogois_wishlist_token', token);
+        app.$axios.post('/me').then((response) => {
+          console.log(response);
+        })
+      }
+
+      var items = app.$q.localStorage.get.item('nunogois_wishlist');
       if (items !== null)
         app.items = items;
 
