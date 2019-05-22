@@ -5,7 +5,7 @@
 
     <h1 class="title fit q-mb-sm">Wishlist</h1>
 
-    <draggable tag="q-list" :options="{delay:100, delayOnTouchOnly:true, touchStartThreshold:10}" :list="items" :component-data="{attrs: {noBorder: true }}" class="wishlist" v-if="items.length" @change="save_items">
+    <draggable tag="q-list" :options="{delay:400, delayOnTouchOnly:true, touchStartThreshold:10}" :list="items" :component-data="{attrs: {noBorder: true }}" class="wishlist" v-if="items.length" @change="save_items">
       <wishlist-item v-for="(item, i) in items" :key="item.id" :item="item" :i="i" @delete="delete_item" @update="save_items"/>
     </draggable>
 
@@ -50,7 +50,7 @@
         Thank you for using Wishlist!
       </p>
       <div slot="body">
-        <span>1.19.05.22.1222</span>
+        <span>1.19.05.22.1224</span>
       </div>
     </q-dialog>
   </q-page>
