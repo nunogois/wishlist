@@ -174,7 +174,7 @@ export default {
       var token = app.$route.query.token;
       if (token) {
         app.$q.localStorage.set('nunogois_wishlist_token', token);
-        app.$axios.post('/me').then((response) => {
+        app.$axios.get('/me').then((response) => {
           console.log(response);
         })
       }
