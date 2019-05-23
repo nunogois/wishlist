@@ -6,7 +6,7 @@
     <h1 class="title fit q-mb-sm">Wishlist</h1>
 
     <!-- <draggable tag="q-list" :options="{delay:400, delayOnTouchOnly:true, touchStartThreshold:10}" :list="items" :component-data="{attrs: {noBorder: true }}" class="wishlist" v-if="items.length" @change="save_items"> -->
-    <draggable tag="q-list" :options="{filter:'.q-item-side, .q-input-target'}" :list="items" :component-data="{attrs: {noBorder: true }}" class="wishlist" v-if="items.length" @change="save_items">
+    <draggable tag="q-list" filter=".q-item-side, .q-input-target" :list="items" :component-data="{attrs: {noBorder: true }}" class="wishlist" v-if="items.length" @change="save_items">
       <wishlist-item v-for="(item, i) in items" :key="item.id" :item="item" :i="i" @delete="delete_item" @update="save_items"/>
     </draggable>
 
@@ -182,6 +182,7 @@ export default {
       app.$router.replace('/');
       if (token) {
         app.$q.localStorage.set('nunogois_wishlist_token', token);
+        app.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
         app.$axios.get('/load').then((response) => {
           user = response.data.user;
           user_list = response.data.user_list;
