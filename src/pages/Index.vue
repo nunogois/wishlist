@@ -93,7 +93,7 @@ export default {
     loaded: false,
     show_about: false,
     user: undefined,
-    show_login: true
+    show_login: false
   }),
   methods: {
     auth_google() {
@@ -206,13 +206,17 @@ export default {
       if (token && token !== null) {
         app.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
         app.$axios.get('/load').then((response) => {
-          console.log(response.data);
-          this.user = response.data.user;
+          app.user = response.data.user;
           var user_list = response.data.user_list;
           if (user_list !== null && user_list.updated > offline_list.updated)
             app.items = user_list.items;
+        }).catch((e) => {
+          app.$q.localStorage.remove('nunogois_wishlist_token');
         })
       }
+
+      if (!app.user)
+        app.show_login = true;
 
       app.loaded = true;
     }
