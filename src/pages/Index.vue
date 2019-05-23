@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page class="flex flex-center" v-if="loaded">
 
     <git-hub-corner/>
 
@@ -214,10 +214,10 @@ export default {
         app.$axios.get('/load').then((response) => {
           app.user = response.data.user;
           var user_list = response.data.user_list;
-          console.log(user_list);
-          console.log(offline_list);
           if (user_list !== null && (offline_list === null || new Date(user_list.updated) > new Date(offline_list.updated)))
             app.items = user_list.items;
+
+          app.loaded = true;
         }).catch((e) => {
           app.$q.localStorage.remove('nunogois_wishlist_token');
         })
@@ -225,9 +225,9 @@ export default {
       else {
         if (!app.user)
           app.show_login = true;
+
+        app.loaded = true;
       }
-      
-      app.loaded = true;
     }
   }
 }
