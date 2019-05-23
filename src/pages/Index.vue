@@ -178,9 +178,9 @@ export default {
       if (offline_list !== null)
         app.items = offline_list.items;
 
-      var token = app.$route.query.token;
-      app.$router.replace('/');
-      if (token) {
+      var token = app.$route.query.token || app.$q.localStorage.get.item('nunogois_wishlist_token');
+      if (token && token != null) {
+        app.$router.replace('/');
         app.$q.localStorage.set('nunogois_wishlist_token', token);
         app.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
         app.$axios.get('/load').then((response) => {
