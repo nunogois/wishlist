@@ -5,7 +5,7 @@
       {{ user._json.name }}
       <q-popover fit>
         <q-list separator dense link>
-          <q-item v-close-overlay @click="logout">Logout</q-item>
+          <q-item v-close-overlay @click.native="logout">Logout</q-item>
         </q-list>
       </q-popover>
     </q-chip>    
