@@ -191,8 +191,8 @@ export default {
       if (token && token != null) {
         app.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
         app.$axios.get('/load').then((response) => {
-          user = response.data.user;
-          user_list = response.data.user_list;
+          this.user = response.data.user;
+          var user_list = response.data.user_list;
           if (user_list && user_list.updated > offline_list.updated)
             app.items = user_list.items;
         })
