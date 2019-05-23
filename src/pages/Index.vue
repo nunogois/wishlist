@@ -114,8 +114,9 @@ export default {
       this.save_items();
     },
     save_items() {
-      this.$q.localStorage.set('nunogois_wishlist', this.items);
-      app.$axios.post('/save', { items: this.items });
+      this.$q.localStorage.set('nunogois_wishlist', { items: this.items, updated: Date.now() });
+      if (this.user)
+        app.$axios.post('/save', { items: this.items });
     },
     checking_items(condition) {
       this.items.forEach(item => {
@@ -173,18 +174,21 @@ export default {
           app.add_item();
       })
 
+      var offline_list = app.$q.localStorage.get.item('nunogois_wishlist');
+      if (offline_list !== null)
+        app.items = offline_list.items;
+
       var token = app.$route.query.token;
       app.$router.replace('/');
       if (token) {
         app.$q.localStorage.set('nunogois_wishlist_token', token);
         app.$axios.get('/load').then((response) => {
-          user = response.data.user; // TO DO: GET ITEMS FROM RESPONSE (SEE API)
+          user = response.data.user;
+          user_list = response.data.user_list;
+          if (user_list && user_list.updated > offline_list.updated)
+            app.items = user_list.items;
         })
       }
-
-      var items = app.$q.localStorage.get.item('nunogois_wishlist');
-      if (items !== null)
-        app.items = items;
 
       app.loaded = true;
     }
