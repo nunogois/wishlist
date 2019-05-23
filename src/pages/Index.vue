@@ -190,8 +190,15 @@ export default {
       })
 
       var offline_list = app.$q.localStorage.get.item('nunogois_wishlist');
-      if (offline_list !== null)
-        app.items = offline_list.items;
+      if (offline_list !== null) {
+        if (!offline_list.updated) {
+          app.$q.localStorage.remove('nunogois_wishlist');
+          offline_list = null;
+          app.items = [];
+        }
+        else
+          app.items = offline_list.items;
+      }
 
       var token;
       if (app.$route.query.token) {
@@ -208,7 +215,7 @@ export default {
         app.$axios.get('/load').then((response) => {
           app.user = response.data.user;
           var user_list = response.data.user_list;
-          if (user_list !== null && user_list.updated > offline_list.updated)
+          if (user_list !== null && (offline_list === null || new Date(user_list.updated) > new Date(offline_list.updated)))
             app.items = user_list.items;
         }).catch((e) => {
           app.$q.localStorage.remove('nunogois_wishlist_token');
