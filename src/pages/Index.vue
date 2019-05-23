@@ -217,7 +217,6 @@ export default {
           console.log({google: new Date(user_list.updated)});
           console.log(offline_list);
           console.log(offline_list === null);
-          console.log({offline: new Date(offline_list.updated)});
           if (user_list !== null && (offline_list === null || new Date(user_list.updated) > new Date(offline_list.updated)))
             console.log('will load from google');
           if (user_list !== null && (offline_list === null || new Date(user_list.updated) > new Date(offline_list.updated)))
