@@ -191,13 +191,12 @@ export default {
 
       var offline_list = app.$q.localStorage.get.item('nunogois_wishlist');
       if (offline_list !== null) {
-        if (!offline_list.updated) {
-          app.$q.localStorage.remove('nunogois_wishlist');
-          offline_list = null;
-          app.items = [];
+        if (!offline_list.updated) { // is this a old list? let's upgrade it to a new list that saves the save date
+          offline_list = { items: offline_list, updated: Date.now() };
+          app.$q.localStorage.set('nunogois_wishlist', offline_list);
         }
-        else
-          app.items = offline_list.items;
+        
+        app.items = offline_list.items;
       }
 
       var token;
