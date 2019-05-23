@@ -64,7 +64,9 @@ module.exports = function (ctx) {
         'QDialog',
         'QFab',
         'QFabAction',
-        'QModal'
+        'QModal',
+        'QChip',
+        'QPopover'
       ],
       directives: [
         'Ripple',

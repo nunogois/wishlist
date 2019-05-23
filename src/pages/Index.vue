@@ -1,6 +1,16 @@
 <template>
   <q-page class="flex flex-center">
 
+    <q-chip v-if="user" class="fixed user" :avatar="user._json.picture">
+      {{ user._json.name }}
+      <q-popover fit>
+        <q-list separator dense link>
+          <q-item v-close-overlay @click="logout">Logout</q-item>
+        </q-list>
+      </q-popover>
+    </q-chip>    
+    <q-btn v-else-if="loaded" icon="fas fa-user" class="fixed user" color="primary" label="Sign In" @click="show_login = true" />
+
     <git-hub-corner/>
 
     <h1 class="title fit q-mb-sm">Wishlist</h1>
@@ -9,8 +19,7 @@
     <draggable tag="q-list" filter=".q-item-side, .q-input-target" :list="items" :component-data="{attrs: {noBorder: true }}" class="wishlist" v-if="items.length && loaded" @change="save_items">
       <wishlist-item v-for="(item, i) in items" :key="item.id" :item="item" :i="i" @delete="delete_item" @update="save_items"/>
     </draggable>
-
-    <h2 v-if="!items.length && loaded" class="fit q-display-1 text-weight-thin content-start">Your wishlist is empty! Click the Add button on the lower right corner or click <a href="javascript:;" style="text-decoration:none;" @click="add_item">here</a> to add a new item!</h2>
+    <h2 v-else-if="loaded" class="fit q-display-1 text-weight-thin content-start">Your wishlist is empty! Click the Add button on the lower right corner or click <a href="javascript:;" style="text-decoration:none;" @click="add_item">here</a> to add a new item!</h2>
 
     <q-fab class="fixed menu" color="primary" icon="menu" direction="up">
       
@@ -51,7 +60,7 @@
         Thank you for using Wishlist!
       </p>
       <div slot="body">
-        <span>1.19.05.23.1730</span>
+        <span>1.19.05.23.1900</span>
       </div>
     </q-dialog>
 
@@ -98,6 +107,15 @@ export default {
   methods: {
     auth_google() {
       window.location.href = 'https://wishlist-quasar-api.herokuapp.com/auth/google';
+    },
+    logout() {
+      var app = this;
+      app.$axios.post('/logout').then(() => {
+        app.items = [];
+        app.user = [];
+        app.$q.localStorage.remove('nunogois_wishlist');
+        app.$q.localStorage.remove('nunogois_wishlist_token');
+      });      
     },
     add_item() {
       this.$q.dialog({
@@ -252,6 +270,11 @@ export default {
   font-size 20px
   right 18px
   bottom 18px
+
+.user
+  top 18px
+  left 18px
+  cursor pointer
 
 .q-layout-page
   padding-bottom 80px
