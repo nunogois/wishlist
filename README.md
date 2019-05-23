@@ -1,9 +1,9 @@
 [![Nuno Góis](https://img.shields.io/badge/NG-Nuno%20G%C3%B3is-blue.svg?style=for-the-badge&logo=visual-studio-code&logoColor=blue)](https://www.nunogois.com)
 ![Daniel Alexandre](https://img.shields.io/badge/DA-Daniel%20Alexandre-blue.svg?style=for-the-badge&logo=visual-studio-code&logoColor=blue)
-![Made with Quasar Framework](https://img.shields.io/badge/made%20with-Quasar%20Framework-027be3.svg?style=for-the-badge&link=https://quasar-framework.org/)
-![Made with Node.js](https://img.shields.io/badge/Made%20with-Node.js-339933.svg?style=for-the-badge&logo=node.js&link=https://nodejs.org/en/)
-![Made with MongoDB](https://img.shields.io/badge/Made%20with-MongoDB-47A248.svg?style=for-the-badge&logo=mongodb&link=https://www.mongodb.com/)
-![Last Commit](https://img.shields.io/github/last-commit/yokiharo/wishlist-api.svg?style=for-the-badge)
+[![Made with Quasar Framework](https://img.shields.io/badge/made%20with-Quasar%20Framework-027be3.svg?style=for-the-badge)](https://quasar-framework.org/)
+[![Made with Node.js](https://img.shields.io/badge/Made%20with-Node.js-339933.svg?style=for-the-badge&logo=node.js)](https://nodejs.org/en/)
+[![Made with MongoDB](https://img.shields.io/badge/Made%20with-MongoDB-47A248.svg?style=for-the-badge&logo=mongodb)](https://www.mongodb.com/)
+[![Last Commit](https://img.shields.io/github/last-commit/yokiharo/wishlist-api.svg?style=for-the-badge)](https://github.com/yokiharo/wishlist/commits/master)
 
 # Wishlist
 
