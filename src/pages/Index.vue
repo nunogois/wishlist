@@ -115,6 +115,7 @@ export default {
     },
     save_items() {
       this.$q.localStorage.set('nunogois_wishlist', this.items);
+      app.$axios.post('/save', { items: this.items });
     },
     checking_items(condition) {
       this.items.forEach(item => {
