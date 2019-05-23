@@ -206,7 +206,6 @@ export default {
       if (token && token !== null) {
         app.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
         app.$axios.get('/load').then((response) => {
-          console.log('load');
           app.user = response.data.user;
           var user_list = response.data.user_list;
           if (user_list !== null && user_list.updated > offline_list.updated)
@@ -215,11 +214,11 @@ export default {
           app.$q.localStorage.remove('nunogois_wishlist_token');
         })
       }
-
-      console.log(app.user);
-      if (!app.user)
-        app.show_login = true;
-
+      else {
+        if (!app.user)
+          app.show_login = true;
+      }
+      
       app.loaded = true;
     }
   }
