@@ -1,5 +1,5 @@
-![Nuno Góis](https://img.shields.io/badge/NG-Nuno%20G%C3%B3is-blue.svg?style=for-the-badge&logo=visual-studio-code&logoColor=blue&link=https://www.nunogois.com)
-![Daniel Alexandre](https://img.shields.io/badge/DA-Daniel%20Alexandre-blue.svg?style=for-the-badge&logo=visual-studio-code&logoColor=blue&link=https://www.nunogois.com)
+![Nuno Góis](https://img.shields.io/badge/NG-Nuno%20G%C3%B3is-blue.svg?style=for-the-badge&logo=visual-studio-code&logoColor=blue&link=https://www.nunogois.com&sanitize=true)
+![Daniel Alexandre](https://img.shields.io/badge/DA-Daniel%20Alexandre-blue.svg?style=for-the-badge&logo=visual-studio-code&logoColor=blue)
 ![Made with Quasar Framework](https://img.shields.io/badge/made%20with-Quasar%20Framework-027be3.svg?style=for-the-badge&link=https://quasar-framework.org/)
 ![Made with Node.js](https://img.shields.io/badge/Made%20with-Node.js-339933.svg?style=for-the-badge&logo=node.js&link=https://nodejs.org/en/)
 ![Made with MongoDB](https://img.shields.io/badge/Made%20with-MongoDB-47A248.svg?style=for-the-badge&logo=mongodb&link=https://www.mongodb.com/)
