@@ -188,12 +188,13 @@ export default {
       if (!token)
         token = app.$q.localStorage.get.item('nunogois_wishlist_token');
 
-      if (token && token != null) {
+      if (token && token !== null) {
         app.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
         app.$axios.get('/load').then((response) => {
+          console.log(response.data);
           this.user = response.data.user;
           var user_list = response.data.user_list;
-          if (user_list && user_list.updated > offline_list.updated)
+          if (user_list !== null && user_list.updated > offline_list.updated)
             app.items = user_list.items;
         })
       }
