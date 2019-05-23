@@ -32,7 +32,7 @@
 
       <install-app/>
 
-      <q-fab-action color="info" icon="info" text-color="grey-11" @click="about">
+      <q-fab-action color="info" icon="info" text-color="grey-11" @click="show_about = true">
         <q-tooltip :disable="$q.platform.is.mobile" anchor="center right" self="center left" :offset="[10, 0]">About Wishlist</q-tooltip>
       </q-fab-action>
     </q-fab>
@@ -51,7 +51,21 @@
         Thank you for using Wishlist!
       </p>
       <div slot="body">
-        <span>1.19.05.23.1400</span>
+        <span>1.19.05.23.1430</span>
+      </div>
+    </q-dialog>
+
+    <q-dialog v-model="show_login" :ok="false">
+      <span slot="title">Wishlist</span>
+      <div slot="body" class="text-center q-pa-md">
+        Sign in to save and load your wishlist!<br>
+        <div class="q-pa-md">
+          <q-btn icon="fab fa-google" label="Google" color="red" text-color="white" @click="auth_google"/><br>
+        </div>
+        Or continue offline, you can always sign in later<br>
+        <div class="q-pa-md">
+          <q-btn icon="fas fa-plug" label="Offline" color="dark" text-color="white" @click="show_login = false"/>
+        </div>
       </div>
     </q-dialog>
   </q-page>
@@ -78,11 +92,12 @@ export default {
     items: [],
     loaded: false,
     show_about: false,
-    user: undefined
+    user: undefined,
+    show_login: true
   }),
   methods: {
-    about() {
-      this.show_about = true;
+    auth_google() {
+      window.location.href = 'https://wishlist-quasar-api.herokuapp.com/auth/google';
     },
     add_item() {
       this.$q.dialog({
@@ -116,7 +131,7 @@ export default {
     save_items() {
       this.$q.localStorage.set('nunogois_wishlist', { items: this.items, updated: Date.now() });
       if (this.user)
-        app.$axios.post('/save', { items: this.items });
+        this.$axios.post('/save', { items: this.items });
     },
     checking_items(condition) {
       this.items.forEach(item => {
