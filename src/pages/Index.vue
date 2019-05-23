@@ -112,7 +112,7 @@ export default {
       var app = this;
       app.$axios.post('/logout').then(() => {
         app.items = [];
-        app.user = [];
+        app.user = undefined;
         app.$q.localStorage.remove('nunogois_wishlist');
         app.$q.localStorage.remove('nunogois_wishlist_token');
       });      
