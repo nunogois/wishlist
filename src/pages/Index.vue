@@ -77,7 +77,8 @@ export default {
   data: () => ({
     items: [],
     loaded: false,
-    show_about: false
+    show_about: false,
+    user: undefined
   }),
   methods: {
     about() {
@@ -172,10 +173,11 @@ export default {
       })
 
       var token = app.$route.query.token;
+      app.$router.replace('/');
       if (token) {
         app.$q.localStorage.set('nunogois_wishlist_token', token);
-        app.$axios.get('/me').then((response) => {
-          console.log(response);
+        app.$axios.get('/load').then((response) => {
+          user = response.data.user; // TO DO: GET ITEMS FROM RESPONSE (SEE API)
         })
       }
 
