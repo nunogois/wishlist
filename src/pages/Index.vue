@@ -1,16 +1,16 @@
 <template>
-  <q-page class="flex flex-center" v-if="loaded">
+  <q-page class="flex flex-center">
 
     <git-hub-corner/>
 
     <h1 class="title fit q-mb-sm">Wishlist</h1>
 
     <!-- <draggable tag="q-list" :options="{delay:400, delayOnTouchOnly:true, touchStartThreshold:10}" :list="items" :component-data="{attrs: {noBorder: true }}" class="wishlist" v-if="items.length" @change="save_items"> -->
-    <draggable tag="q-list" filter=".q-item-side, .q-input-target" :list="items" :component-data="{attrs: {noBorder: true }}" class="wishlist" v-if="items.length" @change="save_items">
+    <draggable tag="q-list" filter=".q-item-side, .q-input-target" :list="items" :component-data="{attrs: {noBorder: true }}" class="wishlist" v-if="items.length && loaded" @change="save_items">
       <wishlist-item v-for="(item, i) in items" :key="item.id" :item="item" :i="i" @delete="delete_item" @update="save_items"/>
     </draggable>
 
-    <h2 v-else class="fit q-display-1 text-weight-thin content-start">Your wishlist is empty! Click the Add button on the lower right corner or click <a href="javascript:;" style="text-decoration:none;" @click="add_item">here</a> to add a new item!</h2>
+    <h2 v-if="!items.length && loaded" class="fit q-display-1 text-weight-thin content-start">Your wishlist is empty! Click the Add button on the lower right corner or click <a href="javascript:;" style="text-decoration:none;" @click="add_item">here</a> to add a new item!</h2>
 
     <q-fab class="fixed menu" color="primary" icon="menu" direction="up">
       
@@ -214,8 +214,10 @@ export default {
         app.$axios.get('/load').then((response) => {
           app.user = response.data.user;
           var user_list = response.data.user_list;
-          if (user_list !== null && (offline_list === null || new Date(user_list.updated) > new Date(offline_list.updated)))
+          if (user_list !== null && (offline_list === null || new Date(user_list.updated) > new Date(offline_list.updated))) {
             app.items = user_list.items;
+            this.$q.localStorage.set('nunogois_wishlist', { items: app.items, updated: new Date().toISOString() });
+          }
 
           app.loaded = true;
         }).catch((e) => {
