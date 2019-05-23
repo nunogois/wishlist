@@ -129,7 +129,7 @@ export default {
       this.save_items();
     },
     save_items() {
-      this.$q.localStorage.set('nunogois_wishlist', { items: this.items, updated: Date.now() });
+      this.$q.localStorage.set('nunogois_wishlist', { items: this.items, updated: new Date().toISOString() });
       if (this.user)
         this.$axios.post('/save', { items: this.items });
     },
@@ -192,7 +192,7 @@ export default {
       var offline_list = app.$q.localStorage.get.item('nunogois_wishlist');
       if (offline_list !== null) {
         if (!offline_list.updated) { // is this a old list? let's upgrade it to a new list that saves the save date
-          offline_list = { items: offline_list, updated: Date.now() };
+          offline_list = { items: offline_list, updated: new Date().toISOString() };
           app.$q.localStorage.set('nunogois_wishlist', offline_list);
         }
         
@@ -214,11 +214,8 @@ export default {
         app.$axios.get('/load').then((response) => {
           app.user = response.data.user;
           var user_list = response.data.user_list;
-          console.log({google: new Date(user_list.updated)});
+          console.log(user_list);
           console.log(offline_list);
-          console.log(offline_list === null);
-          if (user_list !== null && (offline_list === null || new Date(user_list.updated) > new Date(offline_list.updated)))
-            console.log('will load from google');
           if (user_list !== null && (offline_list === null || new Date(user_list.updated) > new Date(offline_list.updated)))
             app.items = user_list.items;
         }).catch((e) => {
