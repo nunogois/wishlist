@@ -9,7 +9,7 @@ export default {
   name: 'App',
   meta: {
     meta: {
-        keywords: { name: 'keywords', content: 'Wishlist' },
+        keywords: { name: 'keywords', content: 'wishlist online app mobile free open source github wish list nuno gois daniel alexandre quasar framework creator example tutorial socket express jwt cloud' },
         og_title: { prefix: 'og: http://ogp.me/ns#', property: 'og:title', content: 'Wishlist' },
         og_website: { prefix: 'og: http://ogp.me/ns# website: http://ogp.me/ns/website#', property: 'og:type', content: 'website' },
         og_description: { prefix: 'og: http://ogp.me/ns#', property: 'og:description', content: 'An open-source wishlist app made with Quasar Framework.' },
