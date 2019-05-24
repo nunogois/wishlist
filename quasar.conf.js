@@ -76,7 +76,8 @@ module.exports = function (ctx) {
       plugins: [
         'Notify',
         'Dialog',
-        'LocalStorage'
+        'LocalStorage',
+        'Meta'
       ]
       // iconSet: ctx.theme.mat ? 'material-icons' : 'ionicons'
       // i18n: 'de' // Quasar language
