@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex flex-center">
 
-    <transition appear enter-active-class="animated fadeInDown">
+    <transition appear enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutUp">
       <q-chip v-if="user" class="fixed user" :avatar="user._json.picture">
         {{ user._json.name }}
         <q-popover fit>
@@ -21,13 +21,12 @@
       <h1 v-if="loaded" class="title fit q-mb-sm">Wishlist</h1>
     </transition>
 
-    <!-- <draggable tag="q-list" :options="{delay:400, delayOnTouchOnly:true, touchStartThreshold:10}" :list="items" :component-data="{attrs: {noBorder: true }}" class="wishlist" v-if="items.length" @change="save_items"> -->
-    <transition appear enter-active-class="animated fadeInUp">
       <draggable tag="q-list" filter=".q-item-side, .q-input-target" :list="items" :component-data="{attrs: {noBorder: true }}" class="wishlist" v-if="items.length && loaded" @change="save_items">
         <wishlist-item v-for="(item, i) in items" :key="item.id" :item="item" :i="i" @delete="delete_item" @update="save_items"/>
       </draggable>
-      <h2 v-else-if="loaded" class="fit q-display-1 text-weight-thin content-start">Your wishlist is empty! Click the Add button on the lower right corner or click <a href="javascript:;" style="text-decoration:none;" @click="add_item">here</a> to add a new item!</h2>
-    </transition>
+      <transition appear enter-active-class="animated fadeInUp">
+        <h2 v-if="!items.length && loaded" class="fit q-display-1 text-weight-thin content-start">Your wishlist is empty! Click the Add button on the lower right corner or click <a href="javascript:;" style="text-decoration:none;" @click="add_item">here</a> to add a new item!</h2>
+      </transition>
 
     <transition appear enter-active-class="animated fadeInUp">
       <q-fab v-if="loaded" class="fixed menu" color="primary" icon="menu" direction="up">

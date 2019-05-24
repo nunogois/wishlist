@@ -82,7 +82,7 @@ module.exports = function (ctx) {
       // i18n: 'de' // Quasar language
     },
     // animations: 'all' --- includes all animations
-    animations: [ 'fadeInUp', 'fadeInDown', 'fadeIn', 'fadeOutRight' ],
+    animations: [ 'fadeInUp', 'fadeInDown', 'fadeIn', 'fadeOutRight', 'fadeOutUp' ],
     ssr: {
       pwa: false
     },
