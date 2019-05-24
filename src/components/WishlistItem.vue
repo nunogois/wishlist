@@ -1,4 +1,5 @@
 <template>
+  <transition appear enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutRight">
   <q-item link :class="item.check ? 'item_checked' : ''" tag="label">
     <q-item-side left>
       <q-checkbox v-model="item.check" color="green" @input="$emit('update');"/>
@@ -20,6 +21,7 @@
       </q-btn>
     </q-item-side>
   </q-item>
+  </transition>
 </template>
 
 <script>

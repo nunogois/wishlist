@@ -14,7 +14,7 @@
     </transition>
 
     <transition appear enter-active-class="animated fadeIn">
-      <git-hub-corner/>
+      <git-hub-corner v-if="loaded"/>
     </transition>
 
     <transition appear enter-active-class="animated fadeInDown">
