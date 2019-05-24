@@ -90,9 +90,9 @@ module.exports = function (ctx) {
       // workboxPluginMode: 'InjectManifest',
       // workboxOptions: {},
       manifest: {
-        name: 'Wishlist',
+        name: 'Wishlist - The open-source wishlist app!',
         short_name: 'Wishlist',
-        description: 'An open-source wishlist made in Quasar Framework',
+        description: 'An open-source wishlist app made with Quasar Framework.',
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
