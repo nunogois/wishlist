@@ -98,6 +98,8 @@ import InstallApp from 'components/InstallApp';
 
 import Draggable from 'vuedraggable';
 
+import socket from 'socket.io-client';
+
 import { uid } from 'quasar';
 
 export default {
@@ -239,6 +241,11 @@ export default {
         token = app.$q.localStorage.get.item('nunogois_wishlist_token');
 
       if (token && token !== null) {
+        const io = socket.connect('https://wishlist-quasar-api.herokuapp.com', { query: 'token=' + token });
+        io.on('save', (items) => {
+          app.items = items;
+        })
+
         app.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
         app.$axios.get('/load').then((response) => {
           app.user = response.data.user;
