@@ -7,14 +7,12 @@
 
 # Wishlist
 
-A simple wishlist app made with [Quasar Framework](https://quasar-framework.org/)!
-
-You can try it [here](https://wishlist-quasar.netlify.com).
+A simple [Wishlist](https://wishlist-quasar.netlify.com) app made with [Quasar Framework](https://quasar-framework.org/)!
 
 This app is a PWA. If you access it using Chrome on Android, for example, it may ask you to install it. You can also install it through an option on the bottom left menu.
 It has offline capabilities as it uses LocalStorage but you can also sign in with Google OAuth to save your wishlist.
 
-You can find the API/back-end [here](https://github.com/yokiharo/wishlist-api).
+You can find the API/back-end repository [here](https://github.com/yokiharo/wishlist-api).
 
 Feel free to contribute!
 
