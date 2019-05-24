@@ -2,7 +2,7 @@
   "name": "wishlist",
   "version": "1.0.0",
   "description": "An open-source wishlist app made with Quasar Framework.",
-  "productName": "Wishlist",
+  "productName": "Wishlist - The open-source wishlist app!",
   "cordovaId": "com.nunogois.wishlist",
   "author": "Nuno Góis <nunojosegois@gmail.com>",
   "private": true,
