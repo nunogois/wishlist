@@ -1,54 +1,66 @@
 <template>
   <q-page class="flex flex-center">
 
-    <q-chip v-if="user" class="fixed user" :avatar="user._json.picture">
-      {{ user._json.name }}
-      <q-popover fit>
-        <q-list separator dense link>
-          <q-item v-close-overlay @click.native="logout">Logout</q-item>
-        </q-list>
-      </q-popover>
-    </q-chip>    
-    <q-btn v-else-if="loaded" icon="fas fa-user" class="fixed user" color="primary" label="Sign In" @click="show_login = true" />
+    <transition appear enter-active-class="animated fadeInDown">
+      <q-chip v-if="user" class="fixed user" :avatar="user._json.picture">
+        {{ user._json.name }}
+        <q-popover fit>
+          <q-list separator dense link>
+            <q-item v-close-overlay @click.native="logout">Logout</q-item>
+          </q-list>
+        </q-popover>
+      </q-chip>    
+      <q-btn v-else-if="loaded" icon="fas fa-user" class="fixed user" color="primary" label="Sign In" @click="show_login = true" />
+    </transition>
 
-    <git-hub-corner/>
+    <transition appear enter-active-class="animated fadeIn">
+      <git-hub-corner/>
+    </transition>
 
-    <h1 class="title fit q-mb-sm">Wishlist</h1>
+    <transition appear enter-active-class="animated fadeInDown">
+      <h1 v-if="loaded" class="title fit q-mb-sm">Wishlist</h1>
+    </transition>
 
     <!-- <draggable tag="q-list" :options="{delay:400, delayOnTouchOnly:true, touchStartThreshold:10}" :list="items" :component-data="{attrs: {noBorder: true }}" class="wishlist" v-if="items.length" @change="save_items"> -->
-    <draggable tag="q-list" filter=".q-item-side, .q-input-target" :list="items" :component-data="{attrs: {noBorder: true }}" class="wishlist" v-if="items.length && loaded" @change="save_items">
-      <wishlist-item v-for="(item, i) in items" :key="item.id" :item="item" :i="i" @delete="delete_item" @update="save_items"/>
-    </draggable>
-    <h2 v-else-if="loaded" class="fit q-display-1 text-weight-thin content-start">Your wishlist is empty! Click the Add button on the lower right corner or click <a href="javascript:;" style="text-decoration:none;" @click="add_item">here</a> to add a new item!</h2>
+    <transition appear enter-active-class="animated fadeInUp">
+      <draggable tag="q-list" filter=".q-item-side, .q-input-target" :list="items" :component-data="{attrs: {noBorder: true }}" class="wishlist" v-if="items.length && loaded" @change="save_items">
+        <wishlist-item v-for="(item, i) in items" :key="item.id" :item="item" :i="i" @delete="delete_item" @update="save_items"/>
+      </draggable>
+      <h2 v-else-if="loaded" class="fit q-display-1 text-weight-thin content-start">Your wishlist is empty! Click the Add button on the lower right corner or click <a href="javascript:;" style="text-decoration:none;" @click="add_item">here</a> to add a new item!</h2>
+    </transition>
 
-    <q-fab class="fixed menu" color="primary" icon="menu" direction="up">
-      
-      <q-fab-action v-if="items.filter(i => !i.check).length" color="green" icon="check_circle_outline" @click="checking_items(true)">
-        <q-tooltip :disable="$q.platform.is.mobile" anchor="center right" self="center left" :offset="[10, 0]">Check all items</q-tooltip>
-      </q-fab-action>
+    <transition appear enter-active-class="animated fadeInUp">
+      <q-fab v-if="loaded" class="fixed menu" color="primary" icon="menu" direction="up">
+        
+        <q-fab-action v-if="items.filter(i => !i.check).length" color="green" icon="check_circle_outline" @click="checking_items(true)">
+          <q-tooltip :disable="$q.platform.is.mobile" anchor="center right" self="center left" :offset="[10, 0]">Check all items</q-tooltip>
+        </q-fab-action>
 
-      <q-fab-action v-if="items.filter(i => i.check).length" color="purple-13" icon="remove_circle_outline" @click="checking_items(false)">
-        <q-tooltip :disable="$q.platform.is.mobile" anchor="center right" self="center left" :offset="[10, 0]">Uncheck all items</q-tooltip>
-      </q-fab-action>
+        <q-fab-action v-if="items.filter(i => i.check).length" color="purple-13" icon="remove_circle_outline" @click="checking_items(false)">
+          <q-tooltip :disable="$q.platform.is.mobile" anchor="center right" self="center left" :offset="[10, 0]">Uncheck all items</q-tooltip>
+        </q-fab-action>
 
-      <q-fab-action v-if="items.filter(i => i.check).length > 0 && items.length !== items.filter(i => i.check).length" color="orange-7" icon="delete_sweep" @click="delete_checked_items">
-        <q-tooltip :disable="$q.platform.is.mobile" anchor="center right" self="center left" :offset="[10, 0]">Delete checked items</q-tooltip>
-      </q-fab-action>
+        <q-fab-action v-if="items.filter(i => i.check).length > 0 && items.length !== items.filter(i => i.check).length" color="orange-7" icon="delete_sweep" @click="delete_checked_items">
+          <q-tooltip :disable="$q.platform.is.mobile" anchor="center right" self="center left" :offset="[10, 0]">Delete checked items</q-tooltip>
+        </q-fab-action>
 
-      <q-fab-action v-if="items.length" color="red" icon="delete_forever" @click="delete_all_items">
-        <q-tooltip :disable="$q.platform.is.mobile" anchor="center right" self="center left" :offset="[10, 0]">Delete all items</q-tooltip>
-      </q-fab-action>
+        <q-fab-action v-if="items.length" color="red" icon="delete_forever" @click="delete_all_items">
+          <q-tooltip :disable="$q.platform.is.mobile" anchor="center right" self="center left" :offset="[10, 0]">Delete all items</q-tooltip>
+        </q-fab-action>
 
-      <install-app/>
+        <install-app/>
 
-      <q-fab-action color="info" icon="info" text-color="grey-11" @click="show_about = true">
-        <q-tooltip :disable="$q.platform.is.mobile" anchor="center right" self="center left" :offset="[10, 0]">About Wishlist</q-tooltip>
-      </q-fab-action>
-    </q-fab>
+        <q-fab-action color="info" icon="info" text-color="grey-11" @click="show_about = true">
+          <q-tooltip :disable="$q.platform.is.mobile" anchor="center right" self="center left" :offset="[10, 0]">About Wishlist</q-tooltip>
+        </q-fab-action>
+      </q-fab>
+    </transition>
 
-    <q-btn round color="primary" @click="add_item" class="fixed add-item" icon="add">
+    <transition appear enter-active-class="animated fadeInUp">
+    <q-btn v-if="loaded" round color="primary" @click="add_item" class="fixed add-item" icon="add">
       <q-tooltip :disable="$q.platform.is.mobile" anchor="center left" self="center right" :offset="[10, 0]">New Item</q-tooltip>
     </q-btn>
+    </transition>
 
     <q-dialog v-model="show_about">
       <span slot="title">About Wishlist</span>
@@ -260,6 +272,8 @@ export default {
 .wishlist
   width 100%
   max-width 500px
+  transition flex 0.3s ease-out
+  flex 1
 
 .menu
   font-size 20px
