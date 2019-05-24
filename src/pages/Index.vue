@@ -307,6 +307,7 @@ export default {
     position absolute
     width 100%
     top 0
+    left 0
 
 @media (min-width: 600px)
   .menu
